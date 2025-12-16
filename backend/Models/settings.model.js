@@ -33,4 +33,3 @@ SettingsSchema.index({ key: 1 });
 
 module.exports = mongoose.model("Settings", SettingsSchema);
 
-

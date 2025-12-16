@@ -1,4 +1,4 @@
-const User = require('../Models/auth.model')
+const User = require("../models/auth.model");
 const {
   generateOtp,
   sendOtpEmail,
