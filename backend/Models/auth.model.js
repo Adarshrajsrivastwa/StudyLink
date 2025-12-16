@@ -140,4 +140,5 @@ UserSchema.methods.isOtpValid = function (otp) {
   return true;
 };
 
-module.exports = mongoose.model("User", UserSchema);
+// Use existing model if already compiled (prevents OverwriteModelError in dev/hot-reload)
+module.exports = mongoose.models.User || mongoose.model("User", UserSchema);
