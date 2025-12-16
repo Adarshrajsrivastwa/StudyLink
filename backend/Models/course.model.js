@@ -109,3 +109,4 @@ CourseSchema.index({ title: "text", description: "text", tags: "text" });
 
 module.exports = mongoose.model("Course", CourseSchema);
 
+

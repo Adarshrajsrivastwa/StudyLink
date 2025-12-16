@@ -65,3 +65,4 @@ SessionSchema.index({ status: 1, scheduledDate: 1 });
 
 module.exports = mongoose.model("Session", SessionSchema);
 
+

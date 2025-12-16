@@ -50,3 +50,4 @@ PurchaseSchema.index({ razorpayOrderId: 1 });
 
 module.exports = mongoose.model("Purchase", PurchaseSchema);
 
+
