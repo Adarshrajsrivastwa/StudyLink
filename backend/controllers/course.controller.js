@@ -153,6 +153,22 @@ exports.createCourse = async (req, res) => {
       endDate,
     } = req.body;
 
+    // Normalize boolean and numeric fields to handle both JSON and FormData requests
+    const isFreeBool =
+      typeof isFree === "string"
+        ? isFree.toLowerCase() === "true"
+        : !!isFree;
+
+    const priceNumber =
+      price === undefined || price === null || price === ""
+        ? undefined
+        : Number(price);
+
+    const durationNumber =
+      duration === undefined || duration === null || duration === ""
+        ? 0
+        : Number(duration);
+
     // Validation
     if (!title || !description || !category) {
       return res.status(400).json({
@@ -161,7 +177,10 @@ exports.createCourse = async (req, res) => {
       });
     }
 
-    if (!isFree && (price === undefined || price === null)) {
+    if (
+      !isFreeBool &&
+      (priceNumber === undefined || Number.isNaN(priceNumber))
+    ) {
       return res.status(400).json({
         success: false,
         message: "Price is required for paid courses",
@@ -202,10 +221,11 @@ exports.createCourse = async (req, res) => {
       description,
       category,
       level: level || "beginner",
-      price: isFree ? 0 : price,
-      isFree: isFree || false,
+      // For free courses, force price to 0. Otherwise, use the provided price (default 0)
+      price: isFreeBool ? 0 : (priceNumber ?? 0),
+      isFree: isFreeBool,
       thumbnailUrl: thumbnailUrl || null,
-      duration: duration || 0,
+      duration: Number.isNaN(durationNumber) ? 0 : durationNumber,
       lessons: parsedLessons,
       tags: parsedTags,
       instructor: user._id,
@@ -277,6 +297,38 @@ exports.updateCourse = async (req, res) => {
       endDate,
     } = req.body;
 
+    // Normalize values coming from either JSON or multipart/form-data
+    const isFreeBool =
+      isFree === undefined
+        ? undefined
+        : typeof isFree === "string"
+        ? isFree.toLowerCase() === "true"
+        : !!isFree;
+
+    const priceNumber =
+      price === undefined || price === null || price === ""
+        ? undefined
+        : Number(price);
+
+    const durationNumber =
+      duration === undefined || duration === null || duration === ""
+        ? undefined
+        : Number(duration);
+
+    const isPublishedBool =
+      isPublished === undefined
+        ? undefined
+        : typeof isPublished === "string"
+        ? isPublished.toLowerCase() === "true"
+        : !!isPublished;
+
+    const isActiveBool =
+      isActive === undefined
+        ? undefined
+        : typeof isActive === "string"
+        ? isActive.toLowerCase() === "true"
+        : !!isActive;
+
     // Handle thumbnail file upload (from multer)
     if (req.file && req.file.path) {
       course.thumbnailUrl = req.file.path;
@@ -320,22 +372,35 @@ exports.updateCourse = async (req, res) => {
     if (description !== undefined) course.description = description;
     if (category !== undefined) course.category = category;
     if (level !== undefined) course.level = level;
-    if (price !== undefined) course.price = price;
-    if (isFree !== undefined) {
-      course.isFree = isFree;
-      if (isFree) course.price = 0;
+    if (
+      priceNumber !== undefined &&
+      !Number.isNaN(priceNumber)
+    ) {
+      course.price = priceNumber;
     }
-    if (duration !== undefined) course.duration = duration;
+    if (isFreeBool !== undefined) {
+      course.isFree = isFreeBool;
+      // When a course is marked as free, always force the price to 0
+      if (isFreeBool) {
+        course.price = 0;
+      }
+    }
+    if (
+      durationNumber !== undefined &&
+      !Number.isNaN(durationNumber)
+    ) {
+      course.duration = durationNumber;
+    }
     if (startDate !== undefined) course.startDate = startDate;
     if (endDate !== undefined) course.endDate = endDate;
     if (
-      isPublished !== undefined &&
+      isPublishedBool !== undefined &&
       (user.role === "admin" || user.role === "superadmin" || course.instructor.toString() === user._id.toString())
     ) {
-      course.isPublished = isPublished;
+      course.isPublished = isPublishedBool;
     }
-    if (isActive !== undefined) {
-      course.isActive = isActive;
+    if (isActiveBool !== undefined) {
+      course.isActive = isActiveBool;
     }
 
     await course.save();
