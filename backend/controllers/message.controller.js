@@ -1,7 +1,7 @@
-const Chat = require("../models/message.model");
-const ChatConversation = require("../models/conversation.model");
-const User = require("../models/auth.model");
-const Purchase = require("../models/purchase.model");
+const Chat = require("../Models/message.model");
+const ChatConversation = require("../Models/conversation.model");
+const User = require("../Models/auth.model");
+const Purchase = require("../Models/purchase.model");
 const Razorpay = require("razorpay");
 const crypto = require("crypto");
 

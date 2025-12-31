@@ -1,7 +1,7 @@
 const Razorpay = require("razorpay");
 const crypto = require("crypto");
-const Resource = require("../models/resource.model");
-const Purchase = require("../models/purchase.model");
+const Resource = require("../Models/resource.model");
+const Purchase = require("../Models/purchase.model");
 
 // Initialize Razorpay
 const razorpay = new Razorpay({
@@ -157,8 +157,8 @@ exports.createCourseOrder = async (req, res) => {
       });
     }
 
-    const Course = require("../models/course.model");
-    const Enrollment = require("../models/enrollment.model");
+    const Course = require("../Models/course.model");
+    const Enrollment = require("../Models/enrollment.model");
 
     // Get course
     const course = await Course.findById(courseId);
@@ -334,7 +334,7 @@ exports.verifyPayment = async (req, res) => {
 
       // Additional verification: If it's a course, verify course price matches
       if (type === "course") {
-        const Course = require("../models/course.model");
+        const Course = require("../Models/course.model");
         const course = await Course.findById(purchase.resource);
         if (course && course.price !== purchase.amount) {
           console.error(`Course price mismatch: Course price ${course.price} != Purchase amount ${purchase.amount}`);
@@ -375,8 +375,8 @@ exports.verifyPayment = async (req, res) => {
 
     // Handle based on type (resource or course)
     if (type === "course") {
-      const Course = require("../models/course.model");
-      const Enrollment = require("../models/enrollment.model");
+      const Course = require("../Models/course.model");
+      const Enrollment = require("../Models/enrollment.model");
 
       const course = await Course.findById(purchase.resource);
       if (course) {

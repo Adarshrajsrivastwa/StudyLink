@@ -1,6 +1,6 @@
-const Course = require("../models/course.model");
-const Enrollment = require("../models/enrollment.model");
-const Purchase = require("../models/purchase.model");
+const Course = require("../Models/course.model");
+const Enrollment = require("../Models/enrollment.model");
+const Purchase = require("../Models/purchase.model");
 
 // Get all courses
 exports.getAllCourses = async (req, res) => {
