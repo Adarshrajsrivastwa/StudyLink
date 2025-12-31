@@ -1,4 +1,4 @@
-const User = require("../Models/auth.model");
+const User = require("../models/auth.model");
 const bcrypt = require("bcryptjs");
 const { generateToken } = require("../utils/jwt");
 const { generateOtp, sendOtpEmail, saveOtpToUser } = require("../services/otpService");

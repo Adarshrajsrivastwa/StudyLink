@@ -1,6 +1,6 @@
-const Resource = require("../Models/resource.model");
-const Purchase = require("../Models/purchase.model");
-const User = require("../Models/auth.model");
+const Resource = require("../models/resource.model");
+const Purchase = require("../models/purchase.model");
+const User = require("../models/auth.model");
 
 // Get all resources
 exports.getAllResources = async (req, res) => {

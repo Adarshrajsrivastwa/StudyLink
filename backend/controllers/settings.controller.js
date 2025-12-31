@@ -1,4 +1,4 @@
-const Settings = require("../Models/settings.model");
+const Settings = require("../models/settings.model");
 
 // Get Discord invite link (public)
 exports.getDiscordInviteLink = async (req, res) => {

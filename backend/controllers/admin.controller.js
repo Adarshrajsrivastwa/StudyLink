@@ -1,10 +1,10 @@
-const User = require("../Models/auth.model");
-const Course = require("../Models/course.model");
-const Resource = require("../Models/resource.model");
-const Session = require("../Models/session.model");
-const Community = require("../Models/community.model");
-const Enrollment = require("../Models/enrollment.model");
-const Purchase = require("../Models/purchase.model");
+const User = require("../models/auth.model");
+const Course = require("../models/course.model");
+const Resource = require("../models/resource.model");
+const Session = require("../models/session.model");
+const Community = require("../models/community.model");
+const Enrollment = require("../models/enrollment.model");
+const Purchase = require("../models/purchase.model");
 
 // Get all users (admin only)
 exports.getAllUsers = async (req, res) => {

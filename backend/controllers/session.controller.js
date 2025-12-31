@@ -1,6 +1,6 @@
-const Session = require("../Models/session.model");
-const Course = require("../Models/course.model");
-const Enrollment = require("../Models/enrollment.model");
+const Session = require("../models/session.model");
+const Course = require("../models/course.model");
+const Enrollment = require("../models/enrollment.model");
 
 // Create session (mentor only)
 exports.createSession = async (req, res) => {

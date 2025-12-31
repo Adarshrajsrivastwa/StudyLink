@@ -1,9 +1,9 @@
-const User = require("../Models/auth.model");
-const Course = require("../Models/course.model");
-const Enrollment = require("../Models/enrollment.model");
-const ChatConversation = require("../Models/conversation.model");
-const Chat = require("../Models/message.model");
-const Purchase = require("../Models/purchase.model");
+const User = require("../models/auth.model");
+const Course = require("../models/course.model");
+const Enrollment = require("../models/enrollment.model");
+const ChatConversation = require("../models/conversation.model");
+const Chat = require("../models/message.model");
+const Purchase = require("../models/purchase.model");
 
 // Get all mentors (already exists, but adding for completeness)
 exports.getAllMentors = async (req, res) => {
